@@ -67,14 +67,14 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void onSectionAttached(int number) {
-        mTitle = mItemSelection[number];
+        // mTitle = mItemSelection[number]; // Change the title to the item user chooses
     }
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        // actionBar.setTitle(mTitle); // Changes the title of the action bar
     }
 
 
