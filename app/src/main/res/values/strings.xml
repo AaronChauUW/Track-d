@@ -10,12 +10,19 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string-array name="item_selection">
-        <item>Menu</item>
-        <item>All Events</item>
-        <item>Surprise Me!</item>
-        <item>My Account</item>
-        <item>Support</item>
+        <item>Explore!</item>
+        <item>Events</item>
+        <item>Organizations</item>
         <item>About</item>
     </string-array>
+
+
+    <string name="eventListTitle">Events</string>
+    <string name="exploreTitle">Explore</string>
+    <string name="organizationTitle">Organizations</string>
+    <string name="aboutTitle">About</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
