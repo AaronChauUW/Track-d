@@ -7,9 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.R;
+import edu.washington.chau93.trackd.Trackd;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,16 +63,49 @@ public class EventList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_list, container, false);
+
+        // Inflate our event list view
+        View rootView = inflater.inflate(R.layout.fragment_event_list, container, false);
+        // Get our ListView from the layout
+        ListView lv = (ListView) rootView.findViewById(R.id.eventList);
+
+        // TODO: Make this more complex. Need to put more data and make a custom list item.
+        // Reading the JSON Data
+        JSONArray events = null;
+        try {
+            // Get the events
+            events = Trackd.getEvents();
+            // Going to add the event names into this array list
+            ArrayList<String> stringEvents = new ArrayList<>();
+            for(int i = 0; i < events.length(); i++){
+                try {
+                    // Adding the names into the arraylist
+                    stringEvents.add(events.getJSONObject(i).getString("name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Set the list view up with an adapter with our list of event names
+            lv.setAdapter(
+                    new ArrayAdapter<String>(
+                            rootView.getContext(),
+                            android.R.layout.simple_list_item_1,
+                            stringEvents
+                    )
+            );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
