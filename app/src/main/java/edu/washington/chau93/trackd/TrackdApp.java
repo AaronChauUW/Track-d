@@ -31,7 +31,6 @@ public class TrackdApp extends Application {
     }
 
     public JSONObject makeJSON(){
-        String jsonString = null;
         JSONObject dataObj = null;
         try {
             InputStream is = this.getAssets().open("data/trackd.json");
@@ -41,7 +40,7 @@ public class TrackdApp extends Application {
             is.read(buffer);
             is.close();
 
-            jsonString = new String(buffer);
+            String jsonString = new String(buffer);
             dataObj = new JSONObject(jsonString);
         } catch (Exception e) {
             e.printStackTrace();
