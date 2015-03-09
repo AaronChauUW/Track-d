@@ -6,12 +6,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import edu.washington.chau93.trackd.fragments.About;
 import edu.washington.chau93.trackd.fragments.EventList;
 import edu.washington.chau93.trackd.fragments.Explore;
 import edu.washington.chau93.trackd.fragments.Organization;
@@ -26,10 +28,10 @@ public class MainActivity extends ActionBarActivity
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
+
+    private final String TAG = "MainActivity";
+    private TrackdApp app;
 
     private String[] mItemSelection;
     private ListView mItemSelectionListView;
@@ -39,19 +41,25 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        app = (TrackdApp) getApplication();
+
         mItemSelection = getResources().getStringArray(R.array.item_selection);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        // Set up the drawer.
+        // Set up the drawer. Need to move to "NavigationDrawerFragment".
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         mItemSelectionListView = (ListView) findViewById(R.id.itemSelection);
         mItemSelectionListView.setAdapter(
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mItemSelection)
+                new ArrayAdapter<String>(
+                        this,
+                        android.R.layout.simple_list_item_activated_1,
+                        mItemSelection
+                )
         );
     }
 
@@ -70,9 +78,12 @@ public class MainActivity extends ActionBarActivity
             case 2:
                 selection = OrganizationList.newInstance();
                 break;
+            case 3:
+                selection = About.newInstance();
+                break;
             case 4:
                 selection = Organization.newInstance();
-                break;
+               break;
             default:
                 selection = Explore.newInstance();
                 break;

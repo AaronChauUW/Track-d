@@ -86,6 +86,7 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    // @TODO: Move the ArrayAdapter from MainActivity to here.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

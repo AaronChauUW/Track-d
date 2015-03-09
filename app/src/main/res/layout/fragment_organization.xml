@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="edu.washington.chau93.trackd.fragments.Organization"
     android:layout_marginTop="-6dp"
     >
@@ -75,6 +76,10 @@
             </ListView>
         </LinearLayout>
     </ScrollView>
+
+    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:text="@string/organizationTitle" />
+
 
 </FrameLayout>
 

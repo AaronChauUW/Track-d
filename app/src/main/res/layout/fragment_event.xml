@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     tools:context="edu.washington.chau93.trackd.fragments.Event">
 
+<<<<<<< HEAD
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -74,5 +75,9 @@
             </ListView>
         </LinearLayout>
     </ScrollView>
+=======
+    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+        android:text="@string/eventListTitle" />
+>>>>>>> origin/development
 
 </FrameLayout>
