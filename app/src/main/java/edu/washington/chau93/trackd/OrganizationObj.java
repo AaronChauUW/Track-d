@@ -19,7 +19,7 @@ public class OrganizationObj {
 		}
      */
 
-    private String name, category, foundDate, shortDescr, longDescr, email, website;
+    private String name, category, foundDate, shortDescr, longDescr, email, website, id;
 
     public OrganizationObj(JSONObject org){
         try {
@@ -30,6 +30,7 @@ public class OrganizationObj {
             longDescr = org.getString("longDescr");
             email = org.getString("email");
             website = org.getString("website");
+            id = org.getString("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -62,4 +63,6 @@ public class OrganizationObj {
     public String getWebsite() {
         return website;
     }
+
+    public String getId() { return id; }
 }
