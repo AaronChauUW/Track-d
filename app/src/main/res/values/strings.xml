@@ -15,6 +15,7 @@
         <item>Organizations</item>
         <item>About Us</item>
         <item>Organization</item>
+        <item>Event</item>
     </string-array>
 
 
@@ -23,6 +24,7 @@
     <string name="organizationTitle">Organizations</string>
     <string name="aboutTitle">Track\'d</string>
     <string name="organization">Organization</string>
+
     <color name="white">#FFFFFF</color>
     <color name="purple">#5C2965</color>
     <color name="plum">#9B375E</color>
@@ -30,7 +32,11 @@
     <color name="orange">#E9793D</color>
     <color name="yellow">#EBC22C</color>
 
+    <string name="event">Event</string>
+
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="upcoming">Upcoming Events...</string>
+    <string name="calendar">+ Calendar</string>
 </resources>
