@@ -1,9 +1,33 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent" android:background="@color/white"
     tools:context="edu.washington.chau93.trackd.fragments.About">
 
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/aboutTitle" />
+    <ImageView
+        android:id="@+id/logo"
+        android:src="@drawable/trackd_logo"
+        android:layout_width="208dp"
+        android:layout_height="263dp"
+        android:layout_gravity="center_horizontal|top" />
+
+    <TextView android:id="@+id/body" android:layout_width="match_parent" android:layout_height="113dp"
+        android:text="BALALKJFLDJALJFLKSDJ:FLKJSDFLKSDFKSFLK" android:textSize="18dp" android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:layout_gravity="center" />
+
+    <TextView android:id="@+id/tagline" android:layout_width="match_parent" android:layout_height="100dp"
+        android:text="Let us help you keep track\'d" android:textSize="18dp" android:layout_marginTop="190dp"
+        android:gravity="center" android:textColor="@color/purple"
+        android:layout_gravity="center_horizontal|top" />
+
+    <TextView android:id="@+id/members" android:layout_width="match_parent" android:layout_height="76dp"
+        android:textColor="@color/purple" android:gravity="center" android:layout_marginTop="170dp"
+        android:text="Michelle Le | Gabby Nikolova | Louisa Fan |"
+        android:layout_gravity="center">
+    </TextView>
+
+    <TextView android:id="@+id/copyright" android:layout_width="match_parent" android:layout_height="76dp"
+        android:text="Copyright 2015. All Rights Reserved" android:gravity="center"
+        android:layout_gravity="center_horizontal|bottom"></TextView>
 
 </FrameLayout>

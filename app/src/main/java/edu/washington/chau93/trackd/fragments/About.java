@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.R;
@@ -64,7 +66,23 @@ public class About extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_about, container, false);
+
+        TextView body = (TextView) rootView.findViewById(R.id.body);
+        body.setText("Track’d is an application developed by" +
+                "\n" +
+                "University of Washington Informatics" +
+                "\n" +
+                "students as a part of their 2015 capstone" +
+                "\n" +
+                "project.");
+
+        TextView members = (TextView) rootView.findViewById(R.id.members);
+        members.setText("Jenny Chen | Louisa Fan | Michelle Le" +
+                "\n" +
+                "Gabby Nikolova | Shengyao Qian");
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

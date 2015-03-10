@@ -13,7 +13,7 @@
         <item>Explore!</item>
         <item>Events</item>
         <item>Organizations</item>
-        <item>About</item>
+        <item>About Us</item>
         <item>Organization</item>
     </string-array>
 
@@ -21,8 +21,14 @@
     <string name="eventListTitle">Events</string>
     <string name="exploreTitle">Explore</string>
     <string name="organizationTitle">Organizations</string>
-    <string name="aboutTitle">About</string>
+    <string name="aboutTitle">Track\'d</string>
     <string name="organization">Organization</string>
+    <color name="white">#FFFFFF</color>
+    <color name="purple">#5C2965</color>
+    <color name="plum">#9B375E</color>
+    <color name="red">#D64857</color>
+    <color name="orange">#E9793D</color>
+    <color name="yellow">#EBC22C</color>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
