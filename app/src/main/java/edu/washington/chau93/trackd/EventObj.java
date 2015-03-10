@@ -19,7 +19,7 @@ public class EventObj {
 		 "host" : "Asian Coalition for Equality"
      */
 
-    private String name, details, where, startDate, startTime, endDate, endTime, host;
+    private String name, details, where, startDate, startTime, endDate, endTime, host, id;
     private int index;
 
     public EventObj(JSONObject event, int index){
@@ -33,7 +33,7 @@ public class EventObj {
             endDate = event.getString("endDate");
             endTime = event.getString("endTime");
             host = event.getString("host");
-
+            id = event.getString("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -72,4 +72,6 @@ public class EventObj {
     }
 
     public int getIndex() { return index; }
+
+    public String getId() { return id; }
 }

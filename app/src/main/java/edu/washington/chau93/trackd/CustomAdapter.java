@@ -51,7 +51,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
     }
 
     public static class ViewHolder {
-        public TextView title, locationTime;
+        public TextView title, locationTime, id;
     }
 
     @Override
@@ -72,6 +72,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
             holder = new ViewHolder();
             holder.title = (TextView) customView.findViewById(R.id.event_item_title);
             holder.locationTime = (TextView) customView.findViewById(R.id.event_item_locationTime);
+            holder.id = (TextView) customView.findViewById(R.id.event_item_id);
 
             // Set holder with Layout Inflater
             customView.setTag(holder);
@@ -93,6 +94,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
                     tempEventObj.getWhere() + " / " +
                             convertTime(tempEventObj.getStartTime(), tempEventObj.getEndTime())
             );
+            holder.id.setText(tempEventObj.getId());
         }
 
         return customView;

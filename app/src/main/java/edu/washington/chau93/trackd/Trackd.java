@@ -42,22 +42,22 @@ public class Trackd {
     }
 
     // Finds a specific event by name.
-    public static EventObj findEventByName(String name)  {
-        return (EventObj) findByName(getEvents(), name);
+    public static EventObj findEventById(String id)  {
+        return (EventObj) findByName(getEvents(), id);
     }
 
     // Finds a specific organization by name.
-    public static OrganizationObj findOrgByName(String name) {
-        return (OrganizationObj) findByName(getOrgs(), name);
+    public static OrganizationObj findOrgByName(String id) {
+        return (OrganizationObj) findByName(getOrgs(), id);
 
     }
 
     // Generic find method by name.
-    private static Object findByName(ArrayList<?> list, String name) {
+    private static Object findByName(ArrayList<?> list, String id) {
         for(Object o : list){
-            if(o instanceof EventObj && ((EventObj) o).getName().equals(name)){
+            if(o instanceof EventObj && ((EventObj) o).getId().equals(id)){
                 return o;
-            } else if(o instanceof OrganizationObj && ((OrganizationObj) o).getName().equals(name)){
+            } else if(o instanceof OrganizationObj && ((OrganizationObj) o).getName().equals(id)){
                 return o;
             }
         }
@@ -78,6 +78,7 @@ public class Trackd {
         Trackd.jsonData = jsonData;
         try {
             // Get the json data
+            Log.d(TAG, "jsonData is " + jsonData);
             JSONArray jsonArrayEvents = jsonData.getJSONArray(JSON_EVENTS);
             JSONArray jsonArrayOrgs = jsonData.getJSONArray(JSON_ORG);
 
