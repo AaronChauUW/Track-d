@@ -83,7 +83,7 @@ public class Trackd {
 
             // Add the data into an array list.
             for(int i = 0; i < jsonArrayEvents.length() -1; i++){
-                eventList.add(new EventObj(jsonArrayEvents.getJSONObject(i)));
+                eventList.add(new EventObj(jsonArrayEvents.getJSONObject(i), i));
             }
 
             for(int j = 0; j < jsonArrayOrgs.length() -1; j++){

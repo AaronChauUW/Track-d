@@ -20,8 +20,10 @@ public class EventObj {
      */
 
     private String name, details, where, startDate, startTime, endDate, endTime, host;
+    private int index;
 
-    public EventObj(JSONObject event){
+    public EventObj(JSONObject event, int index){
+        this.index = index;
         try {
             name = event.getString("name");
             details = event.getString("details");
@@ -68,4 +70,6 @@ public class EventObj {
     public String getHost() {
         return host;
     }
+
+    public int getIndex() { return index; }
 }

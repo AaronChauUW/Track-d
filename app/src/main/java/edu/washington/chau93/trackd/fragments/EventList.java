@@ -17,8 +17,12 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import edu.washington.chau93.trackd.CustomAdapter;
 import edu.washington.chau93.trackd.EventObj;
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.R;
@@ -83,22 +87,13 @@ public class EventList extends Fragment {
         ListView lv = (ListView) rootView.findViewById(R.id.eventList);
 
         // TODO: Make this more complex. Need to put more data and make a custom list item.
-        // Get the Arraylist of event objects
-        ArrayList<EventObj> events = null;
-        // Get the events
-        events = Trackd.getEvents();
-        // Going to add the event names into this array list
-        ArrayList<String> stringEvents = new ArrayList<>();
-        for(EventObj eo : events){
-            stringEvents.add(eo.getName());
-        }
 
-        // Set the list view up with an adapter with our list of event names
+        // Set the list view up with a custom adapter with our list of event objects
         lv.setAdapter(
-                new ArrayAdapter<String>(
-                        rootView.getContext(),
-                        android.R.layout.simple_list_item_1,
-                        stringEvents
+                new CustomAdapter(
+                        getActivity(),
+                        Trackd.getEvents(),
+                        rootView.getResources()
                 )
         );
 
@@ -110,7 +105,7 @@ public class EventList extends Fragment {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                TextView tv = (TextView) view.findViewById(R.id.event_item_title);
                 EventObj eo = Trackd.findEventByName(tv.getText().toString());
                 // Do stuff with the event object
                 String msg = eo.getName() + "\n" + eo.getDetails();
