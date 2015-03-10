@@ -3,10 +3,16 @@
     android:layout_height="match_parent"
     tools:context="edu.washington.chau93.trackd.fragments.EventList">
 
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/eventListTitle" />
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventList"></ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                android:text="@string/eventListTitle"
+                android:textSize="30dp"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/eventList"></ListView>
+        </LinearLayout>
 </FrameLayout>

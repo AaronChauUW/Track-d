@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import edu.washington.chau93.trackd.fragments.About;
+import edu.washington.chau93.trackd.fragments.Event;
 import edu.washington.chau93.trackd.fragments.EventList;
 import edu.washington.chau93.trackd.fragments.Explore;
 import edu.washington.chau93.trackd.fragments.Organization;
@@ -84,6 +85,9 @@ public class MainActivity extends ActionBarActivity
             case 4:
                 selection = Organization.newInstance();
                break;
+            case 5:
+                selection = Event.newInstance();
+                break;
             default:
                 selection = Explore.newInstance();
                 break;

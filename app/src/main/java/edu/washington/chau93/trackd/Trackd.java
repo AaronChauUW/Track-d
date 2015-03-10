@@ -82,11 +82,12 @@ public class Trackd {
             JSONArray jsonArrayOrgs = jsonData.getJSONArray(JSON_ORG);
 
             // Add the data into an array list.
-            for(int i = 0; i < jsonArrayEvents.length(); i++){
+            for(int i = 0; i < jsonArrayEvents.length() -1; i++){
                 eventList.add(new EventObj(jsonArrayEvents.getJSONObject(i)));
             }
-            for(int i = 0; i < jsonArrayOrgs.length(); i++){
-                orgList.add(new OrganizationObj(jsonArrayOrgs.getJSONObject(i)));
+
+            for(int j = 0; j < jsonArrayOrgs.length() -1; j++){
+                orgList.add(new OrganizationObj(jsonArrayOrgs.getJSONObject(j)));
             }
         } catch (JSONException e) {
             e.printStackTrace();
