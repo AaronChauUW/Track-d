@@ -1,13 +1,18 @@
 package edu.washington.chau93.trackd.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import edu.washington.chau93.trackd.CustomAdapter;
+import edu.washington.chau93.trackd.EventObj;
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.R;
 
@@ -41,6 +46,7 @@ public class Event extends Fragment {
     public static Event newInstance() {
         Event fragment = new Event();
         Bundle args = new Bundle();
+
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
@@ -64,7 +70,34 @@ public class Event extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event, container, false);
+        Bundle args = getArguments();
+        View rootView = inflater.inflate(R.layout.fragment_event, container, false);
+        EventObj eo = (EventObj) args.getSerializable("eo");
+
+        TextView eventName = (TextView) rootView.findViewById(R.id.event_name);
+        eventName.setText(eo.getName());
+        Log.i("Event", "orgName != null : " + eo.getName());
+
+        TextView details = (TextView) rootView.findViewById(R.id.eventDescr);
+        details.setText(eo.getDetails());
+
+        String dateTime = eo.getStartDate() + " / " + eo.getStartTime() + " - " + eo.getEndTime();
+        TextView dateTime1 = (TextView) rootView.findViewById(R.id.dateTime);
+        dateTime1.setText(dateTime);
+
+        TextView loc = (TextView) rootView.findViewById(R.id.meetLocation);
+        loc.setText(eo.getWhere());
+
+        TextView hosts = (TextView) rootView.findViewById(R.id.hosts);
+        hosts.setText("Hosted by: " + eo.getHost());
+
+        TextView descr = (TextView) rootView.findViewById(R.id.eventDescr);
+        descr.setText(eo.getDetails());
+
+
+
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,5 +123,4 @@ public class Event extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 }

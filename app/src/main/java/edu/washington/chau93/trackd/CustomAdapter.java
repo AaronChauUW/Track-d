@@ -74,6 +74,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
             holder.locationTime = (TextView) customView.findViewById(R.id.event_item_locationTime);
             holder.id = (TextView) customView.findViewById(R.id.event_item_id);
 
+
             // Set holder with Layout Inflater
             customView.setTag(holder);
         } else {

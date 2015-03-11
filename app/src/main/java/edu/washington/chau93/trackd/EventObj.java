@@ -3,10 +3,12 @@ package edu.washington.chau93.trackd;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by Aaron Chau on 3/8/2015.
  */
-public class EventObj {
+public class EventObj implements Serializable {
 
     /*
         "name" : "Asians Collaborating Together Conference (ACE)",
@@ -21,6 +23,7 @@ public class EventObj {
 
     private String name, details, where, startDate, startTime, endDate, endTime, host, id;
     private int index;
+    private String photo;
 
     public EventObj(JSONObject event, int index){
         this.index = index;
@@ -34,6 +37,7 @@ public class EventObj {
             endTime = event.getString("endTime");
             host = event.getString("host");
             id = event.getString("id");
+            photo = event.getString("pic");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -74,4 +78,6 @@ public class EventObj {
     public int getIndex() { return index; }
 
     public String getId() { return id; }
+
+    public String getPhoto() { return photo; }
 }

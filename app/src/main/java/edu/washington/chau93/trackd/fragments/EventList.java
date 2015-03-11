@@ -1,10 +1,14 @@
 package edu.washington.chau93.trackd.fragments;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+//import android.support.v4.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +112,17 @@ public class EventList extends Fragment {
                 TextView tv = (TextView) view.findViewById(R.id.event_item_id);
                 EventObj eo = Trackd.findEventById(tv.getText().toString());
                 // Do stuff with the event object
+
+
+//                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Bundle b = new Bundle();
+                b.putSerializable("eo", eo);
+                Fragment f = Event.newInstance();
+                f.setArguments(b);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, f)
+                        .commit();
+
                 String msg = eo.getName() + "\n" + eo.getDetails();
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
             }
