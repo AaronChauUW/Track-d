@@ -20,8 +20,9 @@ public class OrganizationObj {
      */
 
     private String name, category, foundDate, shortDescr, longDescr, email, website, id;
-
-    public OrganizationObj(JSONObject org){
+    private int index;
+    public OrganizationObj(JSONObject org, int index){
+        this.index = index;
         try {
             name = org.getString("name");
             category = org.getString("category");
@@ -65,4 +66,6 @@ public class OrganizationObj {
     }
 
     public String getId() { return id; }
+
+    public int getIndex() { return index; }
 }

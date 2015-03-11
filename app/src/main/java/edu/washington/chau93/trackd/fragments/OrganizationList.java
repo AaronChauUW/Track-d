@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import edu.washington.chau93.trackd.CustomEventAdapter;
+import edu.washington.chau93.trackd.CustomOrgAdapter;
 import edu.washington.chau93.trackd.EventObj;
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.OrganizationObj;
@@ -84,21 +86,22 @@ public class OrganizationList extends Fragment {
 
         // TODO: Make this more complex. Need to put more data and make a custom list item.
         // Get the Arraylist of event objects
-        ArrayList<OrganizationObj> orgs = null;
+        //ArrayList<OrganizationObj> orgs = null;
         // Get the events
-        orgs = Trackd.getOrgs();
+        //orgs = Trackd.getOrgs();
         // Going to add the event names into this array list
-        ArrayList<String> stringOrgs = new ArrayList<>();
-        for(OrganizationObj o : orgs){
-            stringOrgs.add(o.getName());
-        }
+       // ArrayList<String> stringOrgs = new ArrayList<>();
+       // for(OrganizationObj o : orgs){
+       //     stringOrgs.add(o.getName());
+            //stringOrgs.add(o.getShortDescr());
+       // }
 
         // Set the list view up with an adapter with our list of event names
         lv.setAdapter(
-                new ArrayAdapter<String>(
-                        rootView.getContext(),
-                        android.R.layout.simple_list_item_1,
-                        stringOrgs
+                new CustomOrgAdapter(
+                        getActivity(),
+                        Trackd.getOrgs(),
+                        rootView.getResources()
                 )
         );
 
