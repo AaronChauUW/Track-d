@@ -86,7 +86,6 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    // @TODO: Move the ArrayAdapter from MainActivity to here.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,15 +97,17 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
+
+        // Set up the navigation drawer here.
+        mDrawerListView.setAdapter(
+                // TODO: Make a custom ArrayAdapter for navigation drawer. Not purty enough.
+                new ArrayAdapter<String>(
+                        mDrawerListView.getContext(),
+                        android.R.layout.simple_list_item_activated_1,
+                        // Get the string of items in Strings.xml
+                        getResources().getStringArray(R.array.item_selection)
+                )
+        );
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
