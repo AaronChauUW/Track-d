@@ -34,6 +34,7 @@ public class Trackd {
         // TODO: Might want to change these to tree sets so they can organize chronologically
         eventList = new ArrayList<>();
         orgList = new ArrayList<>();
+
     }
 
     // Get the Trackd singleton instance. Not exactly sure why this is needed.
@@ -43,21 +44,44 @@ public class Trackd {
 
     // Finds a specific event by name.
     public static EventObj findEventById(String id)  {
-        return (EventObj) findByName(getEvents(), id);
+        return (EventObj) findEventByName(getEvents(), id);
     }
 
     // Finds a specific organization by name.
-    public static OrganizationObj findOrgByName(String id) {
-        return (OrganizationObj) findByName(getOrgs(), id);
+    public static OrganizationObj findOrgById(String id) {
+        return (OrganizationObj) findOrgByName(getOrgs(), id);
 
     }
 
+    /**
     // Generic find method by name.
     private static Object findByName(ArrayList<?> list, String id) {
         for(Object o : list){
             if(o instanceof EventObj && ((EventObj) o).getId().equals(id)){
                 return o;
             } else if(o instanceof OrganizationObj && ((OrganizationObj) o).getName().equals(id)){
+                return o;
+            }
+        }
+        return null;
+    }
+     */
+
+    // Generic find method by name.
+    private static EventObj findEventByName(ArrayList<EventObj> list, String id) {
+        for(EventObj e : list){
+            if(e.getId().equals(id)){
+
+                return e;
+            }
+        }
+        return null;
+    }
+
+    // Generic find method by name.
+    private static OrganizationObj findOrgByName(ArrayList<OrganizationObj> list, String id) {
+        for(OrganizationObj o : list){
+            if(o.getId().equals(id)){
                 return o;
             }
         }
