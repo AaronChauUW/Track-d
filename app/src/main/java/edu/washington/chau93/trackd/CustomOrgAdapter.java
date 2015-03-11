@@ -3,37 +3,32 @@ package edu.washington.chau93.trackd;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
- * Created by Aaron Chau on 3/10/2015.
+ * Created by Gabby on 3/10/2015.
  */
-public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
-    private final String TAG = "CustomAdapter";
+public class CustomOrgAdapter extends BaseAdapter implements View.OnClickListener {
+    private final String TAG = "CustomOrgAdapter";
     private Activity activity;
-    private ArrayList<EventObj> data;
+    private ArrayList<OrganizationObj> data;
     private static LayoutInflater inflater = null;
     public Resources res;
-    private EventObj tempEventObj;
+    private OrganizationObj tempOrgObj;
 
     // Constructor
-    public CustomAdapter(Activity a, ArrayList<EventObj> data, Resources res){
+    public CustomOrgAdapter(Activity a, ArrayList<OrganizationObj> data, Resources res){
         this.activity = a;
         this.data = data;
         this.res = res;
 
-        tempEventObj = null;
+        tempOrgObj = null;
 
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -51,7 +46,7 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
     }
 
     public static class ViewHolder {
-        public TextView title, locationTime, id;
+        public TextView title, detail, time, id;
     }
 
     @Override
@@ -66,14 +61,14 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
 
         if (convertView == null){
             // Inflate our custom list item view
-            customView = inflater.inflate(R.layout.custom_event_list_item, null);
+            customView = inflater.inflate(R.layout.custom_list_item, null);
 
             // Use View Holder to hold the widgets
             holder = new ViewHolder();
-            holder.title = (TextView) customView.findViewById(R.id.event_item_title);
-            holder.locationTime = (TextView) customView.findViewById(R.id.event_item_locationTime);
-            holder.id = (TextView) customView.findViewById(R.id.event_item_id);
-
+            holder.title = (TextView) customView.findViewById(R.id.item_Name);
+            holder.detail = (TextView) customView.findViewById(R.id.item_detail);
+            holder.time = (TextView) customView.findViewById(R.id.item_extra);
+            holder.id = (TextView) customView.findViewById(R.id.item_id);
 
             // Set holder with Layout Inflater
             customView.setTag(holder);
@@ -84,18 +79,17 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
             holder.title.setText("There are no events.");
         } else {
             // Get topics from Array List
-            tempEventObj = (EventObj) data.get(position);
+            tempOrgObj = (OrganizationObj) data.get(position);
 
             // Set background color to list item
-            customView.setBackgroundColor(setBackgroundColor(tempEventObj.getIndex()));
+            customView.setBackgroundColor(setBackgroundColor(tempOrgObj.getIndex()));
 
             // Set values into widgets
-            holder.title.setText(tempEventObj.getName());
-            holder.locationTime.setText(
-                    tempEventObj.getWhere() + " / " +
-                            convertTime(tempEventObj.getStartTime(), tempEventObj.getEndTime())
+            holder.title.setText(tempOrgObj.getName());
+            holder.detail.setText(
+                    tempOrgObj.getShortDescr()
             );
-            holder.id.setText(tempEventObj.getId());
+            holder.id.setText(tempOrgObj.getId());
         }
 
         return customView;
@@ -132,19 +126,4 @@ public class CustomAdapter extends BaseAdapter implements View.OnClickListener {
         }
         return color;
     }
-
-    private String convertTime(String start, String end){
-        Date startTime = null;
-        Date endTime = null;
-        try {
-            startTime = new SimpleDateFormat("hh:mm:ss").parse(start);
-            endTime = new SimpleDateFormat("hh:mm:ss").parse(end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
-        return sdf.format(startTime) + "-" + sdf.format(endTime);
-    }
-
-
 }

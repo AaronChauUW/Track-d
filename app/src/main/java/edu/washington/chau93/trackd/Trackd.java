@@ -88,7 +88,7 @@ public class Trackd {
             }
 
             for(int j = 0; j < jsonArrayOrgs.length() -1; j++){
-                orgList.add(new OrganizationObj(jsonArrayOrgs.getJSONObject(j)));
+                orgList.add(new OrganizationObj(jsonArrayOrgs.getJSONObject(j), j));
             }
         } catch (JSONException e) {
             e.printStackTrace();
