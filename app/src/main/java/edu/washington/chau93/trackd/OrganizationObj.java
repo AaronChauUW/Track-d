@@ -3,10 +3,12 @@ package edu.washington.chau93.trackd;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by Aaron Chau on 3/8/2015.
  */
-public class OrganizationObj {
+public class OrganizationObj implements Serializable {
     /*
         {"name" : "Asian Coalition for Equalty",
 	     "category" : "communty",
