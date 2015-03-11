@@ -21,7 +21,8 @@ public class Trackd {
     private static JSONObject jsonData;
     private static ArrayList<EventObj> eventList;
     private static ArrayList<OrganizationObj> orgList;
-
+    private static boolean scheduleStarted;
+    private static boolean updating;
     // Instantiate a new Trackd singleton if it's not already made.
     public static void initInstance() {
         if(instance == null){
@@ -31,6 +32,8 @@ public class Trackd {
 
     // Trackd singleton constructor.
     private Trackd(){
+        scheduleStarted = false;
+        updating = false;
         // TODO: Might want to change these to tree sets so they can organize chronologically
         eventList = new ArrayList<>();
         orgList = new ArrayList<>();
@@ -118,4 +121,30 @@ public class Trackd {
             e.printStackTrace();
         }
     }
+
+    public static void setScheduleStarted() {
+        Trackd.scheduleStarted = true;
+    }
+
+    public static boolean isScheduleStarted(){
+        return scheduleStarted;
+    }
+
+    public static boolean isUpdating() { return updating; }
+
+    public static void setUpdating(boolean updating) { Trackd.updating = updating; }
+
+    public static ArrayList<EventObj> upComingEvents(String orgName){
+        ArrayList<EventObj> upcoming = new ArrayList<EventObj>();
+        if(orgName != null){
+            for(EventObj o : getEvents()){
+                if(o.getHost().equalsIgnoreCase(orgName)){
+                    upcoming.add(o);
+                }
+            }
+        }
+
+        return upcoming;
+    }
+
 }

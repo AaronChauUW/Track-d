@@ -3,6 +3,7 @@ package edu.washington.chau93.trackd;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,6 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
             holder.title = (TextView) customView.findViewById(R.id.item_Name);
             holder.locationDate = (TextView) customView.findViewById(R.id.item_detail);
             holder.time         = (TextView) customView.findViewById(R.id.item_extra);
-            holder.time.setVisibility(View.VISIBLE);
             holder.id = (TextView) customView.findViewById(R.id.item_id);
 
             // Set holder with Layout Inflater
@@ -80,7 +80,10 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
             holder = (ViewHolder) customView.getTag();
         }
         if(data.size() <= 0){
-            holder.title.setText("There are no events.");
+            holder.title.setText(R.string.ev);
+            holder.title.setTextColor(Color.DKGRAY);
+            holder.time.setVisibility(View.GONE);
+            holder.locationDate.setVisibility(View.GONE);
         } else {
             // Get topics from Array List
             tempEventObj = (EventObj) data.get(position);
@@ -94,7 +97,7 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
                     tempEventObj.getWhere() + " / " +
                             convertDate(tempEventObj.getStartDate(), tempEventObj.getEndDate())
             );
-
+            holder.time.setVisibility(View.VISIBLE);
             holder.time.setText(convertTime(tempEventObj.getStartTime(), tempEventObj.getEndTime()));
             holder.id.setText(tempEventObj.getId());
         }
