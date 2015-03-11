@@ -65,6 +65,7 @@ public class Event extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event, container, false);
+        //*********get all details and apply them to fragement_event********
     }
 
     // TODO: Rename method, update argument and hook method into UI event

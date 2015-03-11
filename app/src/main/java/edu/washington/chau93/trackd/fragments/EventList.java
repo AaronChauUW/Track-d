@@ -9,20 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import edu.washington.chau93.trackd.CustomAdapter;
+import edu.washington.chau93.trackd.CustomEventAdapter;
 import edu.washington.chau93.trackd.EventObj;
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.R;
@@ -90,7 +81,7 @@ public class EventList extends Fragment {
 
         // Set the list view up with a custom adapter with our list of event objects
         lv.setAdapter(
-                new CustomAdapter(
+                new CustomEventAdapter(
                         getActivity(),
                         Trackd.getEvents(),
                         rootView.getResources()
@@ -105,7 +96,7 @@ public class EventList extends Fragment {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv = (TextView) view.findViewById(R.id.event_item_id);
+                TextView tv = (TextView) view.findViewById(R.id.item_id);
                 EventObj eo = Trackd.findEventById(tv.getText().toString());
                 // Do stuff with the event object
                 String msg = eo.getName() + "\n" + eo.getDetails();
