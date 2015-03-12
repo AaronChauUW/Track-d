@@ -1,5 +1,10 @@
 package edu.washington.chau93.trackd;
 
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.ColorRes;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -20,7 +25,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -110,8 +118,8 @@ public class NavigationDrawerFragment extends Fragment {
 //                        getResources().getStringArray(R.array.item_selection)
 //                )
                 new CustomNavigationAdapter(
-                        this.getActivity(),
-                        new ArrayList<String>(R.array.item_selection),
+                        getActivity(),
+                        getResources().getStringArray(R.array.item_selection),
                         getResources()
                 )
         );

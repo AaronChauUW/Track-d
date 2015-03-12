@@ -139,6 +139,8 @@ public class MainActivity extends ActionBarActivity
         // mTitle = mItemSelection[number]; // Change the title to the item user chooses
     }
 
+
+
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
