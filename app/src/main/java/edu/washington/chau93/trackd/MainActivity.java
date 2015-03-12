@@ -18,6 +18,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.IOException;
+
 import edu.washington.chau93.trackd.download_manager.Checker;
 import edu.washington.chau93.trackd.fragments.About;
 import edu.washington.chau93.trackd.fragments.Event;
