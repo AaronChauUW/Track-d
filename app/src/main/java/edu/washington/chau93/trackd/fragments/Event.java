@@ -2,6 +2,8 @@ package edu.washington.chau93.trackd.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import edu.washington.chau93.trackd.CustomEventAdapter;
 import edu.washington.chau93.trackd.EventObj;
@@ -93,6 +96,18 @@ public class Event extends Fragment {
 
         TextView descr = (TextView) rootView.findViewById(R.id.eventDescr);
         descr.setText(eo.getDetails());
+
+        ImageView img = (ImageView) rootView.findViewById(R.id.image);
+        Resources res = getResources();
+        int resID = res.getIdentifier(eo.getPhoto(), "drawable",
+                rootView.getContext().getPackageName());
+        //Resources res = getResources();
+        //Drawable d = res.getDrawable(resID);
+        //resID = R.drawable.ace;
+
+        Log.i("Event", "resID: " + resID + " photoName: " + eo.getPhoto());
+
+        img.setImageResource(resID);
 
         return rootView;
         //*********get all details and apply them to fragement_event********

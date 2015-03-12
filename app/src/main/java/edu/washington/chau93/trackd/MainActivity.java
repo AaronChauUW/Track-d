@@ -68,7 +68,7 @@ public class MainActivity extends ActionBarActivity
     private void startScheduledUpdates() {
         Log.d(TAG, "Scheduling Updates");
         // Every 30 minutes
-        long interval = 30 * 60 * 1000;
+        long interval = 1 * 60 * 1000;
 
         Intent checker = new Intent(this, Checker.class);
         pendingIntent = PendingIntent.getBroadcast(this, 0, checker, 0);
