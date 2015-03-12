@@ -125,9 +125,7 @@ public class MainActivity extends ActionBarActivity
                 break;
         }
 
-        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
-            fragmentManager.popBackStack();
-        }
+
         fragmentManager.beginTransaction()
                 .replace(R.id.container,selection)
                 .commit();
@@ -135,6 +133,10 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         // mTitle = mItemSelection[number]; // Change the title to the item user chooses
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+            fragmentManager.popBackStack();
+        }
     }
 
 
