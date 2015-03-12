@@ -1,5 +1,10 @@
 package edu.washington.chau93.trackd;
 
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.ColorRes;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -20,7 +25,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -101,11 +111,16 @@ public class NavigationDrawerFragment extends Fragment {
         // Set up the navigation drawer here.
         mDrawerListView.setAdapter(
                 // TODO: Make a custom ArrayAdapter for navigation drawer. Not purty enough.
-                new ArrayAdapter<String>(
-                        mDrawerListView.getContext(),
-                        android.R.layout.simple_list_item_activated_1,
-                        // Get the string of items in Strings.xml
-                        getResources().getStringArray(R.array.item_selection)
+//                new ArrayAdapter<String>(
+//                        mDrawerListView.getContext(),
+//                        android.R.layout.simple_list_item_activated_1,
+//                        // Get the string of items in Strings.xml
+//                        getResources().getStringArray(R.array.item_selection)
+//                )
+                new CustomNavigationAdapter(
+                        getActivity(),
+                        getResources().getStringArray(R.array.item_selection),
+                        getResources()
                 )
         );
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);

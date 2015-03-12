@@ -113,6 +113,7 @@ public class EventList extends Fragment {
                 f.setArguments(b);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, f)
+                        .addToBackStack(null)
                         .commit();
 
                 String msg = eo.getName() + "\n" + eo.getDetails();

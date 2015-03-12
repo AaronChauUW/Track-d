@@ -1,11 +1,19 @@
 package edu.washington.chau93.trackd;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -18,7 +26,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.IOException;
+
 import edu.washington.chau93.trackd.download_manager.Checker;
+import edu.washington.chau93.trackd.download_manager.Downloader;
 import edu.washington.chau93.trackd.fragments.About;
 import edu.washington.chau93.trackd.fragments.Event;
 import edu.washington.chau93.trackd.fragments.EventList;
@@ -50,10 +61,6 @@ public class MainActivity extends ActionBarActivity
 
         app = (TrackdApp) getApplication();
         am = (AlarmManager) getSystemService(ALARM_SERVICE);
-        if(!Trackd.isScheduleStarted()){
-            startScheduledUpdates();
-            Trackd.setScheduleStarted();
-        }
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -65,6 +72,23 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        checkScheduling();
+    }
+
+    private void checkScheduling(){
+        Log.d(TAG, "Airplane mode on: " + Trackd.isAirplaneModeOn(this));
+        Log.d(TAG, "isScheduleStarted: " + !Trackd.isScheduleStarted());
+        if(Trackd.isAirplaneModeOn(this)){
+            showAlert();
+        } else if (!Trackd.isScheduleStarted()) {
+            startScheduledUpdates();
+            Trackd.setScheduleStarted();
+        }
+    }
+
     private void startScheduledUpdates() {
         Log.d(TAG, "Scheduling Updates");
         // Every 30 minutes
@@ -74,8 +98,9 @@ public class MainActivity extends ActionBarActivity
         pendingIntent = PendingIntent.getBroadcast(this, 0, checker, 0);
 
         am.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, interval, pendingIntent);
-
     }
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -107,6 +132,8 @@ public class MainActivity extends ActionBarActivity
     public void onSectionAttached(int number) {
         // mTitle = mItemSelection[number]; // Change the title to the item user chooses
     }
+
+
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -158,5 +185,34 @@ public class MainActivity extends ActionBarActivity
             am.cancel(pendingIntent);
         }
         if(pendingIntent != null) pendingIntent.cancel();
+    }
+
+    private void showAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setTitle("Airplane Mode")
+                .setMessage("Airplane mode is currently on. We need it off to download data " +
+                        "from our servers. Would you like to turn it off?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+
+                        startActivity(
+                                new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS)
+                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        );
+                        dialog.cancel();
+                    }
+                });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User canceled, do nothing.
+                dialog.cancel();
+            }
+        });
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

@@ -135,6 +135,7 @@ public class OrganizationList extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 //  ExampleFragment fragment = new ExampleFragment();
                 fragmentTransaction.replace(R.id.container, orgFragment);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
             }

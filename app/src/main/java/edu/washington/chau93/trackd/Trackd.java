@@ -1,5 +1,8 @@
 package edu.washington.chau93.trackd;
 
+import android.content.Context;
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -12,6 +15,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static android.os.Environment.*;
 
 /**
  * Created by Aaron Chau on 3/8/2015.
@@ -194,6 +199,7 @@ public class Trackd {
     public static void setUpdating(boolean updating) { Trackd.updating = updating; }
 
 
+
     public static ArrayList<EventObj> upComingEvents(String orgName){
         ArrayList<EventObj> upcoming = new ArrayList<EventObj>();
         if(orgName != null){
@@ -207,5 +213,47 @@ public class Trackd {
         return upcoming;
     }
 
+
+    public static boolean isAirplaneModeOn(Context context) {
+        return Settings.System.getInt(context.getContentResolver(),
+                Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+
+    }
+
+    public static boolean isExternalStorageAvailable(){
+        boolean mExternalStorageAvailable = false;
+        String state = getExternalStorageState();
+
+        if (MEDIA_MOUNTED.equals(state)) {
+            // We can read and write the media
+            mExternalStorageAvailable = true;
+        } else if (MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            // We can only read the media
+            mExternalStorageAvailable = true;
+        } else {
+            // Something else is wrong. It may be one of many other states, but all we need
+            //  to know is we can neither read nor write
+            mExternalStorageAvailable = false;
+        }
+        return mExternalStorageAvailable;
+    }
+
+    public static boolean isExternalStorageWritable(){
+        boolean mExternalStorageWriteable = false;
+        String state = Environment.getExternalStorageState();
+
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            // We can read and write the media
+            mExternalStorageWriteable = true;
+        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            // We can only read the media
+            mExternalStorageWriteable = false;
+        } else {
+            // Something else is wrong. It may be one of many other states, but all we need
+            //  to know is we can neither read nor write
+            mExternalStorageWriteable = false;
+        }
+        return mExternalStorageWriteable;
+    }
 
 }
