@@ -72,6 +72,10 @@
                             android:paddingTop="5dp"
                             android:textSize="20dp"/>
 
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="200px" />
+
                     </LinearLayout>
                     </ScrollView>
             </RelativeLayout>

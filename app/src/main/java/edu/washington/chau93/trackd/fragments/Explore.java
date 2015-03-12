@@ -92,6 +92,7 @@ public class Explore extends Fragment {
 
             ImageView img = (ImageView) v.findViewById(R.id.image);
             img.setImageResource(getResources().getIdentifier(o.getPhoto(), "drawable", v.getContext().getPackageName()));
+
             TextView eventName = (TextView) v.findViewById(R.id.event_name);
             eventName.setText(o.getName());
 
