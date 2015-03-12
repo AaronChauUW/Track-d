@@ -23,9 +23,8 @@ public class EventObj implements Serializable {
 		 "host" : "Asian Coalition for Equality"
      */
 
-    private String name, details, where, startDate, startTime, endDate, endTime, host, id;
+    private String name, details, where, startDate, startTime, endDate, endTime, host, id, photo, shortdescr;
     private int index;
-    private String photo;
 
     public EventObj(JSONObject event, int index){
         this.index = index;
@@ -40,6 +39,8 @@ public class EventObj implements Serializable {
             host = event.getString("host");
             id = event.getString("id");
             photo = event.getString("pic");
+            shortdescr = event.getString("shortDescr");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -82,4 +83,6 @@ public class EventObj implements Serializable {
     public String getId() { return id; }
 
     public String getPhoto() { return photo; }
+
+    public String getShortDescr() { return shortdescr; }
 }

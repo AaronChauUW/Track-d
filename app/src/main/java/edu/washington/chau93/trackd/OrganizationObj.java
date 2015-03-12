@@ -21,7 +21,7 @@ public class OrganizationObj implements Serializable {
 		}
      */
 
-    private String name, category, foundDate, shortDescr, longDescr, email, website, id;
+    private String name, category, foundDate, shortDescr, longDescr, email, website, id, photo;
     private int index;
     public OrganizationObj(JSONObject org, int index){
         this.index = index;
@@ -34,6 +34,7 @@ public class OrganizationObj implements Serializable {
             email = org.getString("email");
             website = org.getString("website");
             id = org.getString("id");
+            photo = org.getString("pic");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,4 +71,6 @@ public class OrganizationObj implements Serializable {
     public String getId() { return id; }
 
     public int getIndex() { return index; }
+
+    public String getPhoto() { return photo; }
 }
