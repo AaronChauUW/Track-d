@@ -204,7 +204,8 @@ public class Trackd {
         ArrayList<EventObj> upcoming = new ArrayList<EventObj>();
         if(orgName != null){
             for(EventObj o : getEvents()){
-                if(o.getHost().equalsIgnoreCase(orgName)){
+                String host = o.getHost().toUpperCase();
+                if(orgName.toUpperCase().contains(host)){
                     upcoming.add(o);
                 }
             }
