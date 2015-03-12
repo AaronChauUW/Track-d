@@ -125,7 +125,7 @@ public class OrganizationList extends Fragment {
                 // Do stuff with the event object
                 String msg = o.getName() ;
                 //+ "\n" + o.getShortDescr()
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("org", o);
                 //set Fragmentclass Arguments
