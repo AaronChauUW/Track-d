@@ -101,12 +101,7 @@ public class Event extends Fragment {
         Resources res = getResources();
         int resID = res.getIdentifier(eo.getPhoto(), "drawable",
                 rootView.getContext().getPackageName());
-        //Resources res = getResources();
-        //Drawable d = res.getDrawable(resID);
-        //resID = R.drawable.ace;
-
         Log.i("Event", "resID: " + resID + " photoName: " + eo.getPhoto());
-
         img.setImageResource(resID);
 
         return rootView;
