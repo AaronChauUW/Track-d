@@ -39,4 +39,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="upcoming">Upcoming Events...</string>
     <string name="calendar">+ Calendar</string>
+
+    <string name="url">http://students.washington.edu/mxl/trackd.json</string>
 </resources>

@@ -7,8 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
+import edu.washington.chau93.trackd.OrganizationObj;
 import edu.washington.chau93.trackd.R;
 
 /**
@@ -65,7 +69,24 @@ public class Organization extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_organization, container, false);
+        View v = inflater.inflate(R.layout.fragment_organization, container, false);
+
+        OrganizationObj o =(OrganizationObj) getArguments().getSerializable("org");
+        System.out.println(o.getId());
+        ImageView image = (ImageView) v.findViewById(R.id.image);
+        //TODO: change image
+        TextView n = (TextView) v.findViewById(R.id.orgName);
+        n.setText(o.getName());
+        TextView email = (TextView) v.findViewById(R.id.orgEmail);
+        email.setText(o.getEmail());
+        TextView web = (TextView)  v.findViewById(R.id.orgWeb);
+        web.setText(o.getWebsite());
+        TextView longDescr = (TextView)  v.findViewById(R.id.orgDescr);
+        longDescr.setText(o.getLongDescr());
+        ListView list = (ListView) v.findViewById(R.id.upcomingEvents);
+        //TODO: add events to list view, make method to get all upcoming events for organization
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

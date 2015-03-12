@@ -6,7 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +22,8 @@ public class Trackd {
     private static JSONObject jsonData;
     private static ArrayList<EventObj> eventList;
     private static ArrayList<OrganizationObj> orgList;
+    private static boolean scheduleStarted;
+    private static boolean updating;
 
     // Instantiate a new Trackd singleton if it's not already made.
     public static void initInstance() {
@@ -31,9 +34,15 @@ public class Trackd {
 
     // Trackd singleton constructor.
     private Trackd(){
+
+        scheduleStarted = false;
+        updating = false;
+
         // TODO: Might want to change these to tree sets so they can organize chronologically
         eventList = new ArrayList<>();
         orgList = new ArrayList<>();
+
+
     }
 
     // Get the Trackd singleton instance. Not exactly sure why this is needed.
@@ -43,21 +52,44 @@ public class Trackd {
 
     // Finds a specific event by name.
     public static EventObj findEventById(String id)  {
-        return (EventObj) findByName(getEvents(), id);
+        return (EventObj) findEventByName(getEvents(), id);
     }
 
     // Finds a specific organization by name.
-    public static OrganizationObj findOrgByName(String id) {
-        return (OrganizationObj) findByName(getOrgs(), id);
+    public static OrganizationObj findOrgById(String id) {
+        return (OrganizationObj) findOrgByName(getOrgs(), id);
 
     }
 
+    /**
     // Generic find method by name.
     private static Object findByName(ArrayList<?> list, String id) {
         for(Object o : list){
             if(o instanceof EventObj && ((EventObj) o).getId().equals(id)){
                 return o;
             } else if(o instanceof OrganizationObj && ((OrganizationObj) o).getName().equals(id)){
+                return o;
+            }
+        }
+        return null;
+    }
+     */
+
+    // Generic find method by name.
+    private static EventObj findEventByName(ArrayList<EventObj> list, String id) {
+        for(EventObj e : list){
+            if(e.getId().equals(id)){
+
+                return e;
+            }
+        }
+        return null;
+    }
+
+    // Generic find method by name.
+    private static OrganizationObj findOrgByName(ArrayList<OrganizationObj> list, String id) {
+        for(OrganizationObj o : list){
+            if(o.getId().equals(id)){
                 return o;
             }
         }
@@ -74,13 +106,28 @@ public class Trackd {
         return orgList;
     }
 
-    public static void setJsonData(JSONObject jsonData) {
-        Trackd.jsonData = jsonData;
+    public static void setJsonData(InputStream is) {
         try {
+            // Read the Input Stream file
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            // Make it into a string
+            String jsonString = new String(buffer);
+
+            // Set our jsonData field to our json data
+            Trackd.jsonData = new JSONObject(jsonString);
+
             // Get the json data
-            Log.d(TAG, "jsonData is " + jsonData);
             JSONArray jsonArrayEvents = jsonData.getJSONArray(JSON_EVENTS);
             JSONArray jsonArrayOrgs = jsonData.getJSONArray(JSON_ORG);
+
+            // Clear the current list
+            // TODO: Might want to change these to tree sets so they can organize chronologically
+            eventList = new ArrayList<>();
+            orgList = new ArrayList<>();
 
             // Add the data into an array list.
             for(int i = 0; i < jsonArrayEvents.length() -1; i++){
@@ -92,6 +139,20 @@ public class Trackd {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    public static void setScheduleStarted() {
+        Trackd.scheduleStarted = true;
+    }
+
+    public static boolean isScheduleStarted(){
+        return scheduleStarted;
+    }
+
+    public static boolean isUpdating() { return updating; }
+
+    public static void setUpdating(boolean updating) { Trackd.updating = updating; }
 }

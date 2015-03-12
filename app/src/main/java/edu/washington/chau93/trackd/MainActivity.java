@@ -1,6 +1,11 @@
 package edu.washington.chau93.trackd;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -13,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import edu.washington.chau93.trackd.download_manager.Checker;
 import edu.washington.chau93.trackd.fragments.About;
 import edu.washington.chau93.trackd.fragments.Event;
 import edu.washington.chau93.trackd.fragments.EventList;
@@ -34,8 +40,8 @@ public class MainActivity extends ActionBarActivity
     private final String TAG = "MainActivity";
     private TrackdApp app;
 
-    private String[] mItemSelection;
-    private ListView mItemSelectionListView;
+    private PendingIntent pendingIntent;
+    private AlarmManager am;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,25 +49,32 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
 
         app = (TrackdApp) getApplication();
-
-        mItemSelection = getResources().getStringArray(R.array.item_selection);
+        am = (AlarmManager) getSystemService(ALARM_SERVICE);
+        if(!Trackd.isScheduleStarted()){
+            startScheduledUpdates();
+            Trackd.setScheduleStarted();
+        }
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        // Set up the drawer. Need to move to "NavigationDrawerFragment".
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-        mItemSelectionListView = (ListView) findViewById(R.id.itemSelection);
-        mItemSelectionListView.setAdapter(
-                new ArrayAdapter<String>(
-                        this,
-                        android.R.layout.simple_list_item_activated_1,
-                        mItemSelection
-                )
-        );
+
+    }
+
+    private void startScheduledUpdates() {
+        Log.d(TAG, "Scheduling Updates");
+        // Every 30 minutes
+        long interval = 30 * 60 * 1000;
+
+        Intent checker = new Intent(this, Checker.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, checker, 0);
+
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, interval, pendingIntent);
+
     }
 
     @Override
@@ -141,5 +154,15 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "Good bye!");
+        if(am != null){
+            am.cancel(pendingIntent);
+        }
+        if(pendingIntent != null) pendingIntent.cancel();
     }
 }

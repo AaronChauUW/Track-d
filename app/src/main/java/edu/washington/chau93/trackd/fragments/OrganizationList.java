@@ -115,11 +115,28 @@ public class OrganizationList extends Fragment {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                OrganizationObj o = Trackd.findOrgByName(tv.getText().toString());
+                //ListView item = (ListView)
+               // TextView t = (TextView) (lv.getItemAtPosition(position));
+               // TextView tv = (TextView) view.findViewById(R.item_id);
+               // String id = tv.getText().toString();
+                TextView tv = (TextView) view.findViewById(R.id.item_id);
+                String orgiId = tv.getText().toString();
+                OrganizationObj o = Trackd.findOrgById(orgiId);
                 // Do stuff with the event object
-                String msg = o.getName() + "\n" + o.getLongDescr();
+                String msg = o.getName() ;
+                //+ "\n" + o.getShortDescr()
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("org", o);
+                //set Fragmentclass Arguments
+                Organization orgFragment = new Organization();
+                orgFragment.setArguments(bundle);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                //  ExampleFragment fragment = new ExampleFragment();
+                fragmentTransaction.replace(R.id.container, orgFragment);
+                fragmentTransaction.commit();
+
             }
         };
     }
