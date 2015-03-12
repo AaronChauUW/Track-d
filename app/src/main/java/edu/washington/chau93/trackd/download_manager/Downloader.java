@@ -13,29 +13,32 @@ import android.util.Log;
 import java.io.File;
 import java.net.URI;
 
+import edu.washington.chau93.trackd.Trackd;
+
 import static android.app.DownloadManager.*;
 
 /**
  * Created by Aaron Chau on 3/10/2015.
  */
 public class Downloader extends Service {
-    private final String TAG = "Service";
-    private Receiver dlReceiver;
+    private static final String TAG = "Service";
+    private static Receiver dlReceiver;
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "Starting the download.");
-        // Get the url
-        String url = intent.getStringExtra("url");
+    public static void downloadFile(String url, Context context){
+        // TODO: Check if external storage exist and is writable and work accordingly.
+
+        // Set updating true
+        Trackd.setUpdating(true);
 
         // Get the download manager
-        DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 
         // Make a reqest
         Request request = new Request(Uri.parse(url));
 
         String fileName = "trackd.json";
-        File jsonFile = new File(getExternalFilesDir(null), fileName);
+        File externalFileDir = context.getExternalFilesDir(null);
+        File jsonFile = new File(externalFileDir, fileName);
         if(jsonFile.exists()){
             // If our file already exist. Lets name the download updating_trackd so we don't
             // overwrite our current file. This way if something bad happens we wont ruin our
@@ -46,14 +49,14 @@ public class Downloader extends Service {
 
         // If the file updating_trackd.json already exist for some reason then we need to
         // delete it. The only reason it would exist is if a update went bad.
-        File badUpdate = new File(getExternalFilesDir(null), "updating_trackd.json");
+        File badUpdate = new File(externalFileDir, "updating_trackd.json");
         badUpdate.delete();
 
         /* The download will be put into the follwoing location:
                 /mnt/sdcard/Android/data/edu.washington.chau93.trackd/files/trackd.json
         */
         request.setDestinationInExternalFilesDir(
-                getApplicationContext(),
+                context,
                 null,
                 fileName
         );
@@ -69,7 +72,19 @@ public class Downloader extends Service {
         dlReceiver.setUpdatingOld(!fileName.equals("trackd.json"));
 
         // Register the receiver so it can listen to broadcast?
-        registerReceiver(dlReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        context.registerReceiver(
+                dlReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        );
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "Starting the download.");
+
+        // Get the url
+        String url = intent.getStringExtra("url");
+
+        downloadFile(url, getApplicationContext());
 
         return super.onStartCommand(intent, flags, startId);
     }
