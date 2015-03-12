@@ -6,7 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +24,7 @@ public class Trackd {
     private static ArrayList<OrganizationObj> orgList;
     private static boolean scheduleStarted;
     private static boolean updating;
+
     // Instantiate a new Trackd singleton if it's not already made.
     public static void initInstance() {
         if(instance == null){
@@ -32,11 +34,15 @@ public class Trackd {
 
     // Trackd singleton constructor.
     private Trackd(){
+
         scheduleStarted = false;
         updating = false;
+
+
         // TODO: Might want to change these to tree sets so they can organize chronologically
         eventList = new ArrayList<>();
         orgList = new ArrayList<>();
+
 
     }
 
@@ -101,13 +107,28 @@ public class Trackd {
         return orgList;
     }
 
-    public static void setJsonData(JSONObject jsonData) {
-        Trackd.jsonData = jsonData;
+    public static void setJsonData(InputStream is) {
         try {
+            // Read the Input Stream file
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            // Make it into a string
+            String jsonString = new String(buffer);
+
+            // Set our jsonData field to our json data
+            Trackd.jsonData = new JSONObject(jsonString);
+
             // Get the json data
-            Log.d(TAG, "jsonData is " + jsonData);
             JSONArray jsonArrayEvents = jsonData.getJSONArray(JSON_EVENTS);
             JSONArray jsonArrayOrgs = jsonData.getJSONArray(JSON_ORG);
+
+            // Clear the current list
+            // TODO: Might want to change these to tree sets so they can organize chronologically
+            eventList = new ArrayList<>();
+            orgList = new ArrayList<>();
 
             // Add the data into an array list.
             for(int i = 0; i < jsonArrayEvents.length() -1; i++){
@@ -118,6 +139,8 @@ public class Trackd {
                 orgList.add(new OrganizationObj(jsonArrayOrgs.getJSONObject(j), j));
             }
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -133,6 +156,7 @@ public class Trackd {
     public static boolean isUpdating() { return updating; }
 
     public static void setUpdating(boolean updating) { Trackd.updating = updating; }
+<<<<<<< HEAD
 
     public static ArrayList<EventObj> upComingEvents(String orgName){
         ArrayList<EventObj> upcoming = new ArrayList<EventObj>();
@@ -147,4 +171,6 @@ public class Trackd {
         return upcoming;
     }
 
+=======
+>>>>>>> development
 }
