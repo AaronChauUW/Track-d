@@ -98,6 +98,7 @@ public class EventList extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView tv = (TextView) view.findViewById(R.id.item_id);
                 EventObj eo = Trackd.findEventById(tv.getText().toString());
+
                 // Do stuff with the event object
                 String msg = eo.getName() + "\n" + eo.getDetails();
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
