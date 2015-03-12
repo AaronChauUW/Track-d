@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import edu.washington.chau93.trackd.CustomEventAdapter;
 import edu.washington.chau93.trackd.EventObj;
@@ -74,7 +75,7 @@ public class Event extends Fragment {
         Bundle args = getArguments();
         View rootView = inflater.inflate(R.layout.fragment_event, container, false);
         EventObj eo = (EventObj) args.getSerializable("eo");
-
+        ImageView img = (ImageView) rootView.findViewById(R.id.image);
         TextView eventName = (TextView) rootView.findViewById(R.id.event_name);
         eventName.setText(eo.getName());
         Log.i("Event", "orgName != null : " + eo.getName());

@@ -123,7 +123,7 @@ public class Organization extends Fragment {
                 //+ "\n" + o.getShortDescr()
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("event",e);
+                bundle.putSerializable("eo",e);
                 //set Fragmentclass Arguments
                 Event eFragment = new Event();
                 eFragment.setArguments(bundle);

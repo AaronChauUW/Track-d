@@ -41,6 +41,6 @@
     <string name="ev">No Events</string>
     <string name="orgs">No Orgs</string>
     <string name="calendar">+ Calendar</string>
-
+    <string name="next">Next</string>
     <string name="url">http://students.washington.edu/mxl/trackd.json</string>
 </resources>

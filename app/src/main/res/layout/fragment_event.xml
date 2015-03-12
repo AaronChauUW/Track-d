@@ -16,7 +16,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/hike"
                 android:layout_gravity="center"
-                />
+                android:scaleType="fitEnd"/>
             <TextView
                 android:id="@+id/event_name"
                 android:layout_width="match_parent"
@@ -69,15 +69,24 @@
 
           <RelativeLayout
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp">
               <Button
                   android:id="@+id/addToCalendar"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="@string/calendar"
                   android:textSize="20dp"
-                  android:background="#A4C739"
-                  android:layout_alignParentRight="true"/>
+                  android:background="@color/plum"
+                  android:layout_alignParentRight="true"
+                  android:paddingLeft="5dp"
+                  android:paddingRight="5dp"
+                  android:paddingTop="10dp"
+                  android:paddingBottom="10dp"
+                  />
               </RelativeLayout>
         </LinearLayout>
     </ScrollView>
