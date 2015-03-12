@@ -3,6 +3,7 @@ package edu.washington.chau93.trackd;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,6 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
             holder.title = (TextView) customView.findViewById(R.id.item_Name);
             holder.locationDate = (TextView) customView.findViewById(R.id.item_detail);
             holder.time         = (TextView) customView.findViewById(R.id.item_extra);
-            holder.time.setVisibility(View.VISIBLE);
             holder.id = (TextView) customView.findViewById(R.id.item_id);
 
 
@@ -81,7 +81,10 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
             holder = (ViewHolder) customView.getTag();
         }
         if(data.size() <= 0){
-            holder.title.setText("There are no events.");
+            holder.title.setText(R.string.ev);
+            holder.title.setTextColor(Color.DKGRAY);
+            holder.time.setVisibility(View.GONE);
+            holder.locationDate.setVisibility(View.GONE);
         } else {
             // Get topics from Array List
             tempEventObj = (EventObj) data.get(position);
@@ -96,7 +99,8 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
                             Trackd.convertDate(tempEventObj.getStartDate(), tempEventObj.getEndDate())
             );
 
-            holder.time.setText(Trackd.convertTime(tempEventObj.getStartTime(), tempEventObj.getEndTime()));
+            holder.time.setVisibility(View.VISIBLE);
+            holder.time.setText(convertTime(tempEventObj.getStartTime(), tempEventObj.getEndTime()));
             holder.id.setText(tempEventObj.getId());
         }
 
@@ -133,5 +137,35 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
                 break;
         }
         return color;
+    }
+
+    private String convertTime(String start, String end){
+        Date startTime = null;
+        Date endTime = null;
+        try {
+            startTime = new SimpleDateFormat("hh:mm:ss").parse(start);
+            endTime = new SimpleDateFormat("hh:mm:ss").parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
+        return sdf.format(startTime) + "-" + sdf.format(endTime);
+    }
+
+    private String convertDate(String start, String end){
+        Date startDate = null;
+        Date endDate = null;
+
+        try {
+            startDate = new SimpleDateFormat("yyyy-MM-dd").parse(start);
+            endDate = new SimpleDateFormat("yyyy-MM-dd").parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d");
+        if(sdf.format(startDate).equalsIgnoreCase(sdf.format(endDate))){
+            return sdf.format(startDate);
+        }
+        return sdf.format(startDate) + "-" + sdf.format(endDate);
     }
 }

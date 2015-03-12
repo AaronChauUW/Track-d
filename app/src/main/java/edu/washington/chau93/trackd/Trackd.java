@@ -48,6 +48,7 @@ public class Trackd {
         scheduleStarted = false;
         updating = false;
 
+
         // TODO: Might want to change these to tree sets so they can organize chronologically
         eventList = new ArrayList<>();
         orgList = new ArrayList<>();
@@ -197,6 +198,22 @@ public class Trackd {
 
     public static void setUpdating(boolean updating) { Trackd.updating = updating; }
 
+
+
+    public static ArrayList<EventObj> upComingEvents(String orgName){
+        ArrayList<EventObj> upcoming = new ArrayList<EventObj>();
+        if(orgName != null){
+            for(EventObj o : getEvents()){
+                if(o.getHost().equalsIgnoreCase(orgName)){
+                    upcoming.add(o);
+                }
+            }
+        }
+
+        return upcoming;
+    }
+
+
     public static boolean isAirplaneModeOn(Context context) {
         return Settings.System.getInt(context.getContentResolver(),
                 Settings.System.AIRPLANE_MODE_ON, 0) != 0;
@@ -238,4 +255,5 @@ public class Trackd {
         }
         return mExternalStorageWriteable;
     }
+
 }

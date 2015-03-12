@@ -120,12 +120,6 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 selection = About.newInstance();
                 break;
-            case 4:
-                selection = Organization.newInstance();
-               break;
-            case 5:
-                selection = Event.newInstance();
-                break;
             default:
                 selection = Explore.newInstance();
                 break;

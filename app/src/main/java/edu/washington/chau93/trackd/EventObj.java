@@ -8,7 +8,9 @@ import java.io.Serializable;
 /**
  * Created by Aaron Chau on 3/8/2015.
  */
+
 public class EventObj implements Serializable {
+
 
     /*
         "name" : "Asians Collaborating Together Conference (ACE)",

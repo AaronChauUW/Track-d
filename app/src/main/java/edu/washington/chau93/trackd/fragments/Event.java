@@ -24,6 +24,7 @@ import java.util.GregorianCalendar;
 
 import edu.washington.chau93.trackd.CustomEventAdapter;
 import edu.washington.chau93.trackd.EventObj;
+
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.R;
 import edu.washington.chau93.trackd.Trackd;
@@ -84,7 +85,11 @@ public class Event extends Fragment {
         // Inflate the layout for this fragment
         Bundle args = getArguments();
         View rootView = inflater.inflate(R.layout.fragment_event, container, false);
+
+        ImageView img = (ImageView) rootView.findViewById(R.id.image);
+
         final EventObj eo = (EventObj) args.getSerializable("eo");
+
 
         TextView eventName = (TextView) rootView.findViewById(R.id.event_name);
         eventName.setText(eo.getName());
@@ -105,7 +110,7 @@ public class Event extends Fragment {
         TextView descr = (TextView) rootView.findViewById(R.id.eventDescr);
         descr.setText(eo.getDetails());
 
-        ImageView img = (ImageView) rootView.findViewById(R.id.image);
+
         Resources res = getResources();
         try {
         int resID = res.getIdentifier(eo.getPhoto(), "drawable",

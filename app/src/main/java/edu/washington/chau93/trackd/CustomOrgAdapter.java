@@ -3,6 +3,7 @@ package edu.washington.chau93.trackd;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,6 @@ public class CustomOrgAdapter extends BaseAdapter implements View.OnClickListene
         if (convertView == null){
             // Inflate our custom list item view
             customView = inflater.inflate(R.layout.custom_list_item, null);
-
             // Use View Holder to hold the widgets
             holder = new ViewHolder();
             holder.title = (TextView) customView.findViewById(R.id.item_Name);
@@ -76,7 +76,10 @@ public class CustomOrgAdapter extends BaseAdapter implements View.OnClickListene
             holder = (ViewHolder) customView.getTag();
         }
         if(data.size() <= 0){
-            holder.title.setText("There are no events.");
+            holder.title.setText(R.string.orgs);
+            holder.title.setTextColor(Color.DKGRAY);
+            holder.time.setVisibility(View.GONE);
+            holder.detail.setVisibility(View.GONE);
         } else {
             // Get topics from Array List
             tempOrgObj = (OrganizationObj) data.get(position);

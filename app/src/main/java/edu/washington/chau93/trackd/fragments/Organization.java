@@ -1,6 +1,13 @@
 package edu.washington.chau93.trackd.fragments;
 
 import android.app.Activity;
+
+import android.content.Context;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,13 +16,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import edu.washington.chau93.trackd.CustomEventAdapter;
+import edu.washington.chau93.trackd.CustomOrgAdapter;
+import edu.washington.chau93.trackd.EventObj;
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.OrganizationObj;
 import edu.washington.chau93.trackd.R;
+import edu.washington.chau93.trackd.Trackd;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,9 +108,46 @@ public class Organization extends Fragment {
 
 
         ListView list = (ListView) v.findViewById(R.id.upcomingEvents);
-        //TODO: add events to list view, make method to get all upcoming events for organization
-
+        ArrayList<EventObj> upcoming = Trackd.upComingEvents(o.getName().toString());
+        list.setAdapter(
+                new CustomEventAdapter(
+                        getActivity(),
+                        upcoming,
+                        v.getResources()
+                )
+        );
+        list.setOnItemClickListener(clickListener(v.getContext()));
         return v;
+    }
+
+    private AdapterView.OnItemClickListener clickListener(final Context context){
+        return new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //ListView item = (ListView)
+                // TextView t = (TextView) (lv.getItemAtPosition(position));
+                // TextView tv = (TextView) view.findViewById(R.item_id);
+                // String id = tv.getText().toString();
+                TextView tv = (TextView) view.findViewById(R.id.item_id);
+                String eId = tv.getText().toString();
+                EventObj e = Trackd.findEventById(eId);
+                // Do stuff with the event object
+                String msg = e.getName() ;
+                //+ "\n" + o.getShortDescr()
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("eo",e);
+                //set Fragmentclass Arguments
+                Event eFragment = new Event();
+                eFragment.setArguments(bundle);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                //  ExampleFragment fragment = new ExampleFragment();
+                fragmentTransaction.replace(R.id.container, eFragment);
+                fragmentTransaction.commit();
+
+            }
+        };
     }
 
     // TODO: Rename method, update argument and hook method into UI event
