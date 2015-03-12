@@ -1,9 +1,11 @@
 package edu.washington.chau93.trackd.fragments;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +76,11 @@ public class Organization extends Fragment {
         OrganizationObj o =(OrganizationObj) getArguments().getSerializable("org");
         System.out.println(o.getId());
         ImageView image = (ImageView) v.findViewById(R.id.image);
-        //TODO: change image
+        Resources res = getResources();
+        int resID = res.getIdentifier(o.getPhoto(), "drawable",
+                v.getContext().getPackageName());
+        Log.i("Organization", "resID: " + resID + " photoName: " + o.getPhoto());
+        image.setImageResource(resID);
         TextView n = (TextView) v.findViewById(R.id.orgName);
         n.setText(o.getName());
         TextView email = (TextView) v.findViewById(R.id.orgEmail);
@@ -83,6 +89,9 @@ public class Organization extends Fragment {
         web.setText(o.getWebsite());
         TextView longDescr = (TextView)  v.findViewById(R.id.orgDescr);
         longDescr.setText(o.getLongDescr());
+
+
+
         ListView list = (ListView) v.findViewById(R.id.upcomingEvents);
         //TODO: add events to list view, make method to get all upcoming events for organization
 

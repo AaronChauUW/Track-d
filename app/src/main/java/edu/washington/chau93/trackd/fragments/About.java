@@ -80,7 +80,7 @@ public class About extends Fragment {
         TextView members = (TextView) rootView.findViewById(R.id.members);
         members.setText("Jenny Chen | Louisa Fan | Michelle Le" +
                 "\n" +
-                "Gabby Nikolova | Shengyao Qian");
+                "Gabby Nikolova | Shengyao Qian | Aaron Chau");
 
         return rootView;
     }
