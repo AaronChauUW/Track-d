@@ -6,13 +6,22 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import edu.washington.chau93.trackd.CustomEventAdapter;
 import edu.washington.chau93.trackd.EventObj;
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
@@ -75,11 +84,10 @@ public class Event extends Fragment {
         // Inflate the layout for this fragment
         Bundle args = getArguments();
         View rootView = inflater.inflate(R.layout.fragment_event, container, false);
-        EventObj eo = (EventObj) args.getSerializable("eo");
+        final EventObj eo = (EventObj) args.getSerializable("eo");
 
         TextView eventName = (TextView) rootView.findViewById(R.id.event_name);
         eventName.setText(eo.getName());
-        Log.i("Event", "orgName != null : " + eo.getName());
 
         TextView details = (TextView) rootView.findViewById(R.id.eventDescr);
         details.setText(eo.getDetails());
@@ -99,11 +107,48 @@ public class Event extends Fragment {
 
         ImageView img = (ImageView) rootView.findViewById(R.id.image);
         Resources res = getResources();
+        try {
         int resID = res.getIdentifier(eo.getPhoto(), "drawable",
                 rootView.getContext().getPackageName());
         Log.i("Event", "resID: " + resID + " photoName: " + eo.getPhoto());
         img.setImageResource(resID);
+        } catch(Exception e) {
 
+        }
+
+        Button addEvent = (Button) rootView.findViewById(R.id.addToCalendar);
+        addEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent calIntent = new Intent(Intent.ACTION_INSERT);
+                calIntent.setType("vnd.android.cursor.item/event");
+                calIntent.putExtra(CalendarContract.Events.TITLE, eo.getName());
+                calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, eo.getWhere());
+                calIntent.putExtra(CalendarContract.Events.DESCRIPTION, eo.getShortDescr());
+
+                Calendar calDate1 = new GregorianCalendar();
+                Calendar calDate2 = new GregorianCalendar();
+                Log.i("Event", "Starttime: " + eo.getStartTime());
+                try {
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
+                    Date startDate = df.parse(eo.getStartDate() + ":" + eo.getStartTime());
+                    Date endDate = df.parse(eo.getStartDate() + ":" + eo.getEndTime());
+                    calDate1.setTime(startDate);
+                    calDate2.setTime(endDate);
+                    Log.i("Event", "date: " + startDate.toString());
+                } catch(Exception e) {
+
+                }
+
+                calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+                calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                        calDate1.getTimeInMillis());
+                calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                        calDate2.getTimeInMillis());
+
+                startActivity(calIntent);
+            }
+        });
         return rootView;
         //*********get all details and apply them to fragement_event********
 
