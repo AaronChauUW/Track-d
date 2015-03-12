@@ -8,7 +8,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Aaron Chau on 3/8/2015.
@@ -32,6 +35,8 @@ public class Trackd {
         }
     }
 
+
+
     // Trackd singleton constructor.
     private Trackd(){
 
@@ -44,6 +49,37 @@ public class Trackd {
 
 
     }
+
+    public static String convertTime(String start, String end){
+        Date startTime = null;
+        Date endTime = null;
+        try {
+            startTime = new SimpleDateFormat("hh:mm:ss").parse(start);
+            endTime = new SimpleDateFormat("hh:mm:ss").parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
+        return sdf.format(startTime) + "-" + sdf.format(endTime);
+    }
+
+    public static String convertDate(String start, String end){
+        Date startDate = null;
+        Date endDate = null;
+
+        try {
+            startDate = new SimpleDateFormat("yyyy-MM-dd").parse(start);
+            endDate = new SimpleDateFormat("yyyy-MM-dd").parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d");
+        if(sdf.format(startDate).equalsIgnoreCase(sdf.format(endDate))){
+            return sdf.format(startDate);
+        }
+        return sdf.format(startDate) + "-" + sdf.format(endDate);
+    }
+
 
     // Get the Trackd singleton instance. Not exactly sure why this is needed.
     public static Trackd getInstance(){

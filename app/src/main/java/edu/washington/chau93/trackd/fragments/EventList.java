@@ -116,7 +116,7 @@ public class EventList extends Fragment {
                         .commit();
 
                 String msg = eo.getName() + "\n" + eo.getDetails();
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
             }
         };
     }

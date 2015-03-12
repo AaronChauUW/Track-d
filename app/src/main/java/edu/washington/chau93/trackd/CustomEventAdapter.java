@@ -93,10 +93,10 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
             holder.title.setText(tempEventObj.getName());
             holder.locationDate.setText(
                     tempEventObj.getWhere() + " / " +
-                            convertDate(tempEventObj.getStartDate(), tempEventObj.getEndDate())
+                            Trackd.convertDate(tempEventObj.getStartDate(), tempEventObj.getEndDate())
             );
 
-            holder.time.setText(convertTime(tempEventObj.getStartTime(), tempEventObj.getEndTime()));
+            holder.time.setText(Trackd.convertTime(tempEventObj.getStartTime(), tempEventObj.getEndTime()));
             holder.id.setText(tempEventObj.getId());
         }
 
@@ -134,35 +134,4 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
         }
         return color;
     }
-
-    private String convertTime(String start, String end){
-        Date startTime = null;
-        Date endTime = null;
-        try {
-            startTime = new SimpleDateFormat("hh:mm:ss").parse(start);
-            endTime = new SimpleDateFormat("hh:mm:ss").parse(end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
-        return sdf.format(startTime) + "-" + sdf.format(endTime);
-    }
-
-    private String convertDate(String start, String end){
-        Date startDate = null;
-        Date endDate = null;
-
-        try {
-            startDate = new SimpleDateFormat("yyyy-MM-dd").parse(start);
-            endDate = new SimpleDateFormat("yyyy-MM-dd").parse(end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d");
-        if(sdf.format(startDate).equalsIgnoreCase(sdf.format(endDate))){
-            return sdf.format(startDate);
-        }
-        return sdf.format(startDate) + "-" + sdf.format(endDate);
-    }
-
 }

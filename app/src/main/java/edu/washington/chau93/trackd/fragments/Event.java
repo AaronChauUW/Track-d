@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import edu.washington.chau93.trackd.CustomAdapter;
+import edu.washington.chau93.trackd.CustomEventAdapter;
 import edu.washington.chau93.trackd.EventObj;
 import edu.washington.chau93.trackd.OnFragmentInteractionListener;
 import edu.washington.chau93.trackd.R;
+import edu.washington.chau93.trackd.Trackd;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,7 +81,7 @@ public class Event extends Fragment {
         TextView details = (TextView) rootView.findViewById(R.id.eventDescr);
         details.setText(eo.getDetails());
 
-        String dateTime = eo.getStartDate() + " / " + eo.getStartTime() + " - " + eo.getEndTime();
+        String dateTime = Trackd.convertDate(eo.getStartDate(), eo.getEndDate()) + " / " +  Trackd.convertTime(eo.getStartTime(), eo.getEndTime());
         TextView dateTime1 = (TextView) rootView.findViewById(R.id.dateTime);
         dateTime1.setText(dateTime);
 
@@ -94,10 +94,9 @@ public class Event extends Fragment {
         TextView descr = (TextView) rootView.findViewById(R.id.eventDescr);
         descr.setText(eo.getDetails());
 
-
-
-
         return rootView;
+        //*********get all details and apply them to fragement_event********
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
