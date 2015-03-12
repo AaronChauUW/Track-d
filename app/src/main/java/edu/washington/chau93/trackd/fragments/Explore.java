@@ -72,54 +72,79 @@ public class Explore extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(savedInstanceState != null) {
-            explored = savedInstanceState.getStringArrayList("explored");
-        } else {
-            explored = new ArrayList<>();
-        }
+       if(getArguments().getStringArrayList("explored") != null){
+           explored = getArguments().getStringArrayList("explored");
+       } else {
+           explored = new ArrayList<>();
+       }
+
         events = Trackd.getEvents();
-        Random r = new Random();
-        int num = r.nextInt(events.size());
-        while(explored.contains(events.get(num).getId())){
-            num = r.nextInt(events.size()) ;
-        }
-        EventObj o = events.get(num);
-        String id = o.getId();
-        explored.add(id);
         View v = inflater.inflate(R.layout.fragment_explore, container, false);
-        ImageView img = (ImageView) v.findViewById(R.id.image);
-        TextView eventName = (TextView) v.findViewById(R.id.event_name);
-        eventName.setText(o.getName());
-        Log.i("Event", "orgName != null : " + o.getName());
-        TextView details = (TextView) v.findViewById(R.id.eventDescr);
-        details.setText(o.getDetails());
-        String dateTime = Trackd.convertDate(o.getStartDate(), o.getEndDate()) + " / " +  Trackd.convertTime(o.getStartTime(), o.getEndTime());
-        TextView dateTime1 = (TextView) v.findViewById(R.id.dateTime);
-        dateTime1.setText(dateTime);
-        TextView loc = (TextView) v.findViewById(R.id.meetLocation);
-        loc.setText(o.getWhere());
-        TextView hosts = (TextView) v.findViewById(R.id.hosts);
-        hosts.setText("Hosted by: " + o.getHost());
-        TextView descr = (TextView) v.findViewById(R.id.eventDescr);
-        descr.setText(o.getDetails());
-
-        Button n = (Button) v.findViewById(R.id.next);
-        n.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-               bundle.putStringArrayList("explored", explored);
-                //set Fragmentclass Arguments
-                Explore eFragment = new Explore();
-                eFragment.setArguments(bundle);
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                //  ExampleFragment fragment = new ExampleFragment();
-                fragmentTransaction.replace(R.id.container, eFragment);
-                fragmentTransaction.commit();
+        if (explored.size() < events.size() ){
+            Random r = new Random();
+            int num = r.nextInt(events.size());
+            while(explored.contains(events.get(num).getId())){
+                num = r.nextInt(events.size()) ;
             }
+            EventObj o = events.get(num);
+            String id = o.getId();
+            explored.add(id);
 
-        });
+            ImageView img = (ImageView) v.findViewById(R.id.image);
+            img.setImageResource(getResources().getIdentifier(o.getPhoto(), "drawable", v.getContext().getPackageName()));
+            TextView eventName = (TextView) v.findViewById(R.id.event_name);
+            eventName.setText(o.getName());
 
+            Log.i("Event", "orgName != null : " + o.getName());
+            TextView details = (TextView) v.findViewById(R.id.eventDescr);
+            details.setText(o.getDetails());
+            String dateTime = Trackd.convertDate(o.getStartDate(), o.getEndDate()) + " / " +  Trackd.convertTime(o.getStartTime(), o.getEndTime());
+            TextView dateTime1 = (TextView) v.findViewById(R.id.dateTime);
+            dateTime1.setText(dateTime);
+            TextView loc = (TextView) v.findViewById(R.id.meetLocation);
+            loc.setText(o.getWhere());
+            TextView hosts = (TextView) v.findViewById(R.id.hosts);
+            hosts.setText("Hosted by: " + o.getHost());
+            TextView descr = (TextView) v.findViewById(R.id.eventDescr);
+            descr.setText(o.getShortDescr());
+
+            Button n = (Button) v.findViewById(R.id.next);
+            n.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("explored", explored);
+                    //set Fragmentclass Arguments
+                    Explore eFragment = new Explore();
+                    eFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    //  ExampleFragment fragment = new ExampleFragment();
+                    fragmentTransaction.replace(R.id.container, eFragment);
+                    fragmentTransaction.commit();
+                }
+
+            });
+            return v;
+        } else {
+            Button n = (Button) v.findViewById(R.id.next);
+            Button c = (Button) v.findViewById(R.id.addToCalendar);
+            ImageView img = (ImageView) v.findViewById(R.id.image);
+            TextView eventName = (TextView) v.findViewById(R.id.event_name);
+            TextView details = (TextView) v.findViewById(R.id.eventDescr);
+            TextView dateTime1 = (TextView) v.findViewById(R.id.dateTime);
+            TextView loc = (TextView) v.findViewById(R.id.meetLocation);
+            TextView hosts = (TextView) v.findViewById(R.id.hosts);
+            TextView descr = (TextView) v.findViewById(R.id.eventDescr);
+            n.setVisibility(v.GONE);
+            c.setVisibility(v.GONE);
+            img.setVisibility(v.GONE);
+            eventName.setText(R.string.explore);
+            details.setVisibility(v.GONE);
+            dateTime1.setVisibility(v.GONE);
+            loc.setVisibility(v.GONE);
+            hosts.setVisibility(v.GONE);
+            descr.setVisibility(v.GONE);
+        }
         return v;
     }
 

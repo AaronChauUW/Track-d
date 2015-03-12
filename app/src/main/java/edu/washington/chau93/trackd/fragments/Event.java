@@ -98,7 +98,7 @@ public class Event extends Fragment {
         TextView descr = (TextView) rootView.findViewById(R.id.eventDescr);
         descr.setText(eo.getDetails());
 
-        ImageView img = (ImageView) rootView.findViewById(R.id.image);
+
         Resources res = getResources();
         int resID = res.getIdentifier(eo.getPhoto(), "drawable",
                 rootView.getContext().getPackageName());

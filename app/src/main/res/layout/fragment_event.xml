@@ -1,75 +1,84 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="edu.washington.chau93.trackd.fragments.Event">
-    <ScrollView
+    android:layout_height="wrap_content"
+    tools:context="edu.washington.chau93.trackd.fragments.Event"
+   >
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hike"
-                android:layout_gravity="center"
-                android:scaleType="fitEnd"/>
-            <TextView
-                android:id="@+id/event_name"
+            android:layout_height="wrap_content">
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rattlesnake Ridge Hike"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:textSize="30dp"/>
-            <TextView
-                android:id="@+id/dateTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tuesday May 6th / 8AM"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:textSize="20dp"/>
-            <TextView
-                android:id="@+id/meetLocation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Flagpole"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:textSize="20dp"/>
-            <TextView
-                android:id="@+id/hosts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hosted by Hike Club"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:textSize="20dp"/>
-            <TextView
-                android:id="@+id/eventDescr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                ornare est nec turpis placerat, ac imperdiet justo semper. Phasel-
-                lus at erat fringilla, pharetra massa in, bibendum nibh. Integer
-                semper sollicitudin purus. Aliquam vel dolor urna. Pellentesque
-                eget maximus odio, vulputate mollis elit."
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:textSize="20dp"/>
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:src="@drawable/hike"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"/>
+                <TextView
+                    android:id="@+id/event_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rattlesnake Ridge Hike"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textSize="30dp"/>
+                <TextView
+                    android:id="@+id/dateTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tuesday May 6th / 8AM"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="10dp"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/meetLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Flagpole"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="10dp"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/hosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hosted by Hike Club"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="10dp"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/eventDescr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="60dp"
+                    android:textSize="20dp"/>
+                </LinearLayout>
+                </ScrollView>
+            </RelativeLayout>
+
 
           <RelativeLayout
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_height="fill_parent"
               android:paddingLeft="5dp"
               android:paddingRight="5dp"
               android:paddingTop="10dp"
@@ -82,12 +91,13 @@
                   android:textSize="20dp"
                   android:background="@color/plum"
                   android:layout_alignParentRight="true"
-                  android:paddingLeft="5dp"
-                  android:paddingRight="5dp"
-                  android:paddingTop="10dp"
-                  android:paddingBottom="10dp"
+                  android:layout_alignParentBottom="true"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:paddingTop="5dp"
+                  android:paddingBottom="5dp"
                   />
               </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+
+    </FrameLayout>
 </FrameLayout>
