@@ -36,7 +36,6 @@ public class Trackd {
     private Trackd(){
         scheduleStarted = false;
         updating = false;
-        String test = "test";
     }
 
     // Get the Trackd singleton instance. Not exactly sure why this is needed.
