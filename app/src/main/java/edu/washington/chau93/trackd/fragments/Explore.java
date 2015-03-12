@@ -2,8 +2,10 @@ package edu.washington.chau93.trackd.fragments;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,7 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Random;
 
 import edu.washington.chau93.trackd.EventObj;
@@ -86,7 +93,7 @@ public class Explore extends Fragment {
             while(explored.contains(events.get(num).getId())){
                 num = r.nextInt(events.size()) ;
             }
-            EventObj o = events.get(num);
+            final EventObj o = events.get(num);
             String id = o.getId();
             explored.add(id);
 
@@ -123,6 +130,39 @@ public class Explore extends Fragment {
                     fragmentTransaction.commit();
                 }
 
+            });
+            Button addEvent = (Button) v.findViewById(R.id.addToCalendar);
+            addEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent calIntent = new Intent(Intent.ACTION_INSERT);
+                    calIntent.setType("vnd.android.cursor.item/event");
+                    calIntent.putExtra(CalendarContract.Events.TITLE, o.getName());
+                    calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, o.getWhere());
+                    calIntent.putExtra(CalendarContract.Events.DESCRIPTION, o.getShortDescr());
+
+                    Calendar calDate1 = new GregorianCalendar();
+                    Calendar calDate2 = new GregorianCalendar();
+                    Log.i("Event", "Starttime: " + o.getStartTime());
+                    try {
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss");
+                        Date startDate = df.parse(o.getStartDate() + ":" + o.getStartTime());
+                        Date endDate = df.parse(o.getStartDate() + ":" + o.getEndTime());
+                        calDate1.setTime(startDate);
+                        calDate2.setTime(endDate);
+                        Log.i("Event", "date: " + startDate.toString());
+                    } catch(Exception e) {
+
+                    }
+
+                    calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+                    calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                            calDate1.getTimeInMillis());
+                    calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                            calDate2.getTimeInMillis());
+
+                    startActivity(calIntent);
+                }
             });
             return v;
         } else {
