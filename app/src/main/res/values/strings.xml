@@ -32,7 +32,7 @@
     <color name="orange">#E9793D</color>
     <color name="yellow">#EBC22C</color>
 
-    <color name="test">#10000000</color>
+    <color name="navSelectedItemBackground">#10000000</color>
 
     <string name="event">Event</string>
 

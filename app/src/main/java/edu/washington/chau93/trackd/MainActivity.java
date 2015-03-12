@@ -130,6 +130,10 @@ public class MainActivity extends ActionBarActivity
                 selection = Explore.newInstance();
                 break;
         }
+
+        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+            fragmentManager.popBackStack();
+        }
         fragmentManager.beginTransaction()
                 .replace(R.id.container,selection)
                 .commit();
