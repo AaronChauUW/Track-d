@@ -18,45 +18,45 @@
                 android:layout_gravity="center"
                 />
             <TextView
+                android:id="@+id/event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/orgName"
                 android:text="Rattlesnake Ridge Hike"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
                 android:textSize="30dp"/>
             <TextView
+                android:id="@+id/dateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/dateTime"
                 android:text="Tuesday May 6th / 8AM"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
                 android:textSize="20dp"/>
             <TextView
+                android:id="@+id/meetLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/meetLocation"
                 android:text="Flagpole"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
                 android:textSize="20dp"/>
             <TextView
+                android:id="@+id/hosts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/hosts"
                 android:text="Hosted by Hike Club"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
                 android:textSize="20dp"/>
             <TextView
+                android:id="@+id/eventDescr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/eventDescr"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                 ornare est nec turpis placerat, ac imperdiet justo semper. Phasel-
                 lus at erat fringilla, pharetra massa in, bibendum nibh. Integer
@@ -71,15 +71,13 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
               <Button
+                  android:id="@+id/addToCalendar"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:id="@+id/addToCalendar"
                   android:text="@string/calendar"
                   android:textSize="20dp"
                   android:background="#A4C739"
                   android:layout_alignParentRight="true"/>
-
-
               </RelativeLayout>
         </LinearLayout>
     </ScrollView>

@@ -74,6 +74,7 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
             holder.time         = (TextView) customView.findViewById(R.id.item_extra);
             holder.id = (TextView) customView.findViewById(R.id.item_id);
 
+
             // Set holder with Layout Inflater
             customView.setTag(holder);
         } else {
@@ -95,8 +96,9 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
             holder.title.setText(tempEventObj.getName());
             holder.locationDate.setText(
                     tempEventObj.getWhere() + " / " +
-                            convertDate(tempEventObj.getStartDate(), tempEventObj.getEndDate())
+                            Trackd.convertDate(tempEventObj.getStartDate(), tempEventObj.getEndDate())
             );
+
             holder.time.setVisibility(View.VISIBLE);
             holder.time.setText(convertTime(tempEventObj.getStartTime(), tempEventObj.getEndTime()));
             holder.id.setText(tempEventObj.getId());
@@ -166,5 +168,4 @@ public class CustomEventAdapter extends BaseAdapter implements View.OnClickListe
         }
         return sdf.format(startDate) + "-" + sdf.format(endDate);
     }
-
 }
