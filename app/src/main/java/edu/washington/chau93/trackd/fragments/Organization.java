@@ -134,7 +134,7 @@ public class Organization extends Fragment {
                 // Do stuff with the event object
                 String msg = e.getName() ;
                 //+ "\n" + o.getShortDescr()
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("eo",e);
                 //set Fragmentclass Arguments
@@ -144,6 +144,7 @@ public class Organization extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 //  ExampleFragment fragment = new ExampleFragment();
                 fragmentTransaction.replace(R.id.container, eFragment);
+//                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
             }

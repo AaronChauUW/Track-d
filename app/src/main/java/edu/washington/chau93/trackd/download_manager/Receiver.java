@@ -135,11 +135,11 @@ public class Receiver extends BroadcastReceiver {
         }
 
 
-        Toast toast = Toast.makeText(context,
-                statusText + "\n" +
-                        reasonText,
-                Toast.LENGTH_LONG);
-        toast.show();
+//        Toast toast = Toast.makeText(context,
+//                statusText + "\n" +
+//                        reasonText,
+//                Toast.LENGTH_LONG);
+//        toast.show();
 
         cursor.close();
         Trackd.setUpdating(false);

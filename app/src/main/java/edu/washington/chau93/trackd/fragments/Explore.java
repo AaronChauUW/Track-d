@@ -128,6 +128,7 @@ public class Explore extends Fragment {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     //  ExampleFragment fragment = new ExampleFragment();
                     fragmentTransaction.replace(R.id.container, eFragment);
+//                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
 
